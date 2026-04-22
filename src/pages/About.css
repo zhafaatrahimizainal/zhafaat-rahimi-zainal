@@ -1,0 +1,153 @@
+.about-container {
+  max-width: 1200px;
+  margin: auto;
+  padding: 40px 40px 0px 40px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 40px;
+}
+
+.about-left {
+  /* min-height: max-content; */
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 10px;
+  min-width: 300px;
+}
+
+.about-left p {
+  color: #555;
+  font-size: 16px;
+  line-height: 1.2;
+}
+
+.skills {
+  margin-top: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.skills span {
+  background: #eee;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 14px;
+}
+
+.about-right {
+  flex: 1;
+  min-width: 300px;
+}
+
+.carousel-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.arrow-left {
+  position: absolute;
+  transform: translateX(40%);
+  background: none;
+  color: black;
+  border: none;
+  padding: 8px; /* smaller */
+  border-radius: 50%;
+  cursor: pointer;
+  z-index: 10;
+}
+
+.arrow-right {
+  position: absolute;
+  right: 0;
+  transform: translateX(-40%);
+  background: none;
+  color: black;
+  border: none;
+  padding: 8px; /* smaller */
+  border-radius: 50%;
+  cursor: pointer;
+  z-index: 10;
+}
+
+.carousel {
+  overflow: hidden;
+  width: 100%;
+}
+
+.track {
+  display: flex;
+  transition: transform 0.5s ease-in-out; /* smooth animation */
+}
+
+/* CARD */
+.exp-card {
+  position: relative;
+  flex: 0 0 calc(100% / 1); /* visibleCards = 1 */
+  box-sizing: border-box;
+  /* height: fit-content; */
+  border-radius: 20px;
+  overflow: hidden;
+  transform: scale(0.9);
+  transition: all 0.5s ease;
+}
+
+.exp-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 20px;
+}
+
+/* RIGHT FADE */
+.overlay-right {
+  position: absolute;
+  right: 0;
+  top: 0;
+  height: 100%;
+  width: 20%;
+  background: linear-gradient(to left, white, transparent);
+}
+
+/* TEXT */
+.exp-text {
+  position: absolute;
+  padding: 20px 0 20px 20px;
+  bottom: 0;
+  left: 0;
+  color: white;
+  width: 100%;
+  height: fit-content;
+  background: linear-gradient(to top right, rgba(0, 0, 0, 0.8), transparent 70%);
+}
+
+.exp-text h3 {
+  margin: 0;
+  font-size: 22px;
+  font-weight: 600;
+}
+
+.exp-text p {
+  margin-top: 3px;
+  font-size: 14px;
+  opacity: 0.9;
+  width: 60%;
+}
+
+/* ACTIVE */
+.exp-card.active {
+  transform: scale(1);
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.35);
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+  .card {
+    min-width: calc(100% / 1);
+  }
+}

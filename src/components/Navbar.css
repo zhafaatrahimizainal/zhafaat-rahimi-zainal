@@ -1,0 +1,154 @@
+.navbar {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 999;
+  transition: all 0.4s ease;
+
+  background: transparent;
+  border-bottom: 1px solid transparent;
+}
+
+.navbar.scrolled {
+  backdrop-filter: blur(10px);
+  background: rgba(255,255,255,0.75);
+  border-bottom: 1px solid rgba(0,0,0,0.05);
+  box-shadow: 0 4px 18px rgba(0,0,0,0.08);
+}
+
+.nav-container {
+  max-width: 1200px;
+  margin: auto;
+  padding: 18px 40px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  transition: padding 0.3s;
+}
+
+.nav-right-container {
+  display: flex;
+  align-items: center;
+  gap: 35px;
+
+}
+
+.navbar.scrolled .nav-container {
+  padding: 14px 40px;
+}
+
+.logo {
+  font-size: 22px;
+  font-weight: 700;
+  color: #0b2545;
+}
+
+/* ================= MENU DESKTOP ================= */
+
+.nav-links {
+  display: flex;
+  gap: 35px;
+  list-style: none;
+  font-weight: 500;
+  color: #1c355e;
+}
+
+.nav-links li {
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.nav-links li:hover {
+  color: #0d6efd;
+}
+
+
+
+/* tombol default */
+.itsme-btn {
+  border: 2px solid #0d6efd;
+  background: transparent;
+  color: #0d6efd;
+  padding: 8px 18px;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.itsme-btn:hover {
+  background: #0d6efd;
+  color: white;
+}
+
+
+/* ================= HAMBURGER ================= */
+
+.hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  cursor: pointer;
+}
+
+.hamburger span {
+  width: 25px;
+  height: 3px;
+  background: #0b2545;
+  transition: 0.3s;
+}
+
+/* ================= LAPTOP ================= */
+@media (min-width: 1200px) {
+  .nav-container {
+    position: relative;
+  }
+
+  .itsme-btn {
+    position: absolute;
+    right: -60px;
+  }
+}
+
+@media (max-width: 1199px) {
+  .itsme-btn {
+    position: static;
+  }
+}
+
+/* ================= MOBILE ================= */
+
+@media (max-width: 900px) {
+
+  .hamburger {
+    display: flex;
+  }
+
+  .resume-btn {
+    display: none;
+  }
+
+  .itsme-btn {
+    display: none;
+  }
+
+  .nav-links {
+    position: absolute;
+    top: 70px;
+    right: 0;
+    width: 100%;
+    flex-direction: column;
+    background: rgba(255,255,255,0.95);
+    backdrop-filter: blur(10px);
+    padding: 30px;
+    gap: 25px;
+
+    transform: translateY(-200%);
+    transition: 0.4s;
+  }
+
+  .nav-links.open {
+    transform: translateY(0);
+  }
+}
