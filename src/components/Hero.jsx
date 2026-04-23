@@ -14,7 +14,7 @@ export default function Hero() {
 
       {/* LEFT */}
       <div className="hero-left">
-        <h1>Zhafaat Rahimi Zainal</h1>
+        <h1>Zhafaat Rahimi Zainal, S.Si</h1>
 
         <p className="hero-subtitle">
           Transforming Ideas into Digital Experiences |

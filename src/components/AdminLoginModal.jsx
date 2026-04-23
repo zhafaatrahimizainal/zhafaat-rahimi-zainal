@@ -4,7 +4,7 @@ import { useAdmin } from "../context/AdminContext";
 import { createPortal } from "react-dom";
 
 export default function AdminLoginModal({ isOpen, onClose }) {
-  const { loginAdmin } = useAdmin();
+  const { loginAdmin, setIsAdmin } = useAdmin();
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
 
@@ -31,9 +31,11 @@ export default function AdminLoginModal({ isOpen, onClose }) {
 
   if (!isOpen) return null;
 
-  const handleLogin = () => {
-    const success = loginAdmin(password);
+  const handleLogin = async () => {
+    const success = await loginAdmin(password);
     if (success) {
+      setIsAdmin(true)
+      localStorage.setItem("isAdmin", "true");
       onClose();
       setPassword("");
       setError("");
