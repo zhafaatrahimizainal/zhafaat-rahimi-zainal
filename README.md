@@ -1,5 +1,3 @@
-Here’s the English version you can put directly into your `README.md` 👇
-
 ---
 
 # 🌐 Personal Portfolio Website
