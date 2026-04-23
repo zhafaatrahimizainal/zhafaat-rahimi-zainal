@@ -1,62 +1,57 @@
 import { createContext, useContext, useEffect, useState } from "react";
-import * as pdfjsLib from "pdfjs-dist";
-import pdfjsWorker from "pdfjs-dist/build/pdf.worker?url";
-
-pdfjsLib.GlobalWorkerOptions.workerSrc = pdfjsWorker;
+import { uploadResume, saveResumeURL, getResumeURL } from "../api/resumeApi";
+import { supabase } from "../lib/supabaseClient";
 
 const ResumeContext = createContext();
 
-const generatePreview = async (pdfDataUrl) => {
-  const pdf = await pdfjsLib.getDocument(pdfDataUrl).promise;
-  const page = await pdf.getPage(1);
-
-  const viewport = page.getViewport({ scale: 1.2 });
-  const canvas = document.createElement("canvas");
-  const context = canvas.getContext("2d");
-
-  canvas.width = viewport.width;
-  canvas.height = viewport.height;
-
-  await page.render({
-    canvasContext: context,
-    viewport: viewport,
-  }).promise;
-
-  return canvas.toDataURL("image/png");
-};
-
 export function ResumeProvider({ children }) {
-  const [resumeURL, setResumeURL] = useState("/resume.pdf");
-  const [previewImage, setPreviewImage] = useState("/resumePreview.png");
-  // cek apakah ada resume tersimpan di browser
+  const [resumeURL, setResumeURL] = useState(null);
+  const [uploading, setUploading] = useState(false);
+  const [previewImage, setPreviewImage] = useState(null);
+
+  // load resume saat app start
   useEffect(() => {
-    const savedResume = localStorage.getItem("resumePDF");
-    const savedPreview = localStorage.getItem("resumePreview");
-
-    if (savedResume) setResumeURL(savedResume);
-    if (savedPreview) setPreviewImage(savedPreview);
-  }, []);
-
-  const updateResume = (file) => {
-    const reader = new FileReader();
-
-    reader.onload = async () => {
-      const base64 = reader.result;
-      // generate thumbnail otomatis 🤯
-      const thumbnail = await generatePreview(base64);
-
-      localStorage.setItem("resumePDF", base64);
-      localStorage.setItem("resumePreview", thumbnail);
-
-      setResumeURL(base64);
-      setPreviewImage(thumbnail);
+    const loadResume = async () => {
+      const resumeData = await getResumeURL();
+      
+      if (resumeData) {
+        console.log("📄 Resume loaded from DB");
+        setResumeURL(resumeData.value.fileURL);
+        setPreviewImage(resumeData.value.previewURL);
+      } else {
+        console.log("⚠️ No resume found");
+      }
     };
 
-    reader.readAsDataURL(file);
+    loadResume();
+  }, []);
+
+  // fungsi upload resume (dipakai admin)
+  const updateResume = async (file) => {
+    try {
+      if (!file) return;
+
+      setUploading(true);
+      console.log("📤 Uploading resume...");
+
+      // 1️⃣ Upload file ke storage
+      const { fileURL, previewURL } = await uploadResume(file);
+      await saveResumeURL(fileURL, previewURL);
+      console.log("Success Upload", previewURL);
+      setResumeURL(fileURL);
+      setPreviewImage(previewURL)
+    } catch (err) {
+      console.error(err);
+      throw err; // 🔥 INI YANG PENTING
+    } finally {
+      setUploading(false);
+    }
   };
 
   return (
-    <ResumeContext.Provider value={{ resumeURL, previewImage, updateResume }}>
+    <ResumeContext.Provider
+      value={{ resumeURL, previewImage, updateResume, uploading }}
+    >
       {children}
     </ResumeContext.Provider>
   );

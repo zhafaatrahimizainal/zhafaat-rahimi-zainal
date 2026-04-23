@@ -9,31 +9,16 @@ export default function ResumeButton() {
   const { isAdmin } = useAdmin();
   const { resumeURL, previewImage } = useResume();
 
+  // console.log(previewImage)
+
   const openResume = () => {
-    const newTab = window.open("", "_blank"); // anti popup blocker
-
-    try {
-      // ambil base64 dari resumeURL (BUKAN localStorage)
-      const base64Data = resumeURL.split(",")[1];
-
-      const byteCharacters = atob(base64Data);
-      const byteNumbers = new Array(byteCharacters.length);
-
-      for (let i = 0; i < byteCharacters.length; i++) {
-        byteNumbers[i] = byteCharacters.charCodeAt(i);
-      }
-
-      const byteArray = new Uint8Array(byteNumbers);
-
-      const blob = new Blob([byteArray], { type: "application/pdf" });
-      const blobUrl = URL.createObjectURL(blob);
-
-      newTab.location.href = blobUrl;
-
-      setTimeout(() => URL.revokeObjectURL(blobUrl), 60000);
-    } catch {
-      newTab.document.write("Failed to open PDF");
+    if (!resumeURL) {
+      alert("Resume belum tersedia");
+      return;
     }
+    console.log(resumeURL);
+
+    window.open(resumeURL, "_blank", "noopener,noreferrer");
   };
 
   return (

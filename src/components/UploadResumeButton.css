@@ -15,3 +15,23 @@
   font-size: 12px;
   transform: translateY(-20px) translateX(-110px);
 }
+
+.spin {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.edit-resume-btn.success {
+  background: transparent;
+  border: none;
+  opacity: 0.7;
+}
+
+.edit-resume-btn.error {
+  background: transparent;
+  border: none;
+  opacity: 0.7;
+}
