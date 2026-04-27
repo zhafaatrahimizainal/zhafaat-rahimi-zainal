@@ -33,7 +33,8 @@ npm install
 Create a new file named **.env** in the root of the project and add:
 
 ```env
-VITE_ADMIN_PASSWORD=your_admin_password_here
+VITE_SUPABASE_URL=your_supabase_url_here
+VITE_SUPABASE_PUBLISHABLE_KEY=your_supabase_publishable_key
 ```
 
 > The `.env` file is ignored by Git for security reasons.
