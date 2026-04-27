@@ -1,10 +1,12 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { supabase } from "../lib/supabaseClient";
 import bcrypt from "bcryptjs";
+import { useSite } from "./SiteContext";
 
 const AdminContext = createContext();
 
 export function AdminProvider({ children }) {
+  const { site } = useSite();
   const [isAdmin, setIsAdmin] = useState(false);
   // ambil password dari env
   const SECRET = import.meta.env.VITE_ADMIN_PASSWORD;
@@ -16,18 +18,25 @@ export function AdminProvider({ children }) {
   }, []);
 
   const loginAdmin = async (inputPassword) => {
+    if (!site) return false;
     try {
       const { data, error } = await supabase
-        .from("admin_auth")
+        .from("sites")
         .select("password_hash")
-        .eq("username", "zhafaat rahimi zainal")
+        .eq("id", site.id)
         .single();
 
-      if (error) throw error;
+      if (error || !data) return false;
 
-      const hash = data.password_hash;
-      const match = await bcrypt.compare(inputPassword, hash);
-      return match;
+      const match = await bcrypt.compare(inputPassword, data.password_hash);
+
+      if (match) {
+        setIsAdmin(true);
+        localStorage.setItem("isAdmin", "true");
+        return true;
+      }
+
+      return false;
     } catch (error) {
       console.error(error);
       return false;
@@ -40,7 +49,9 @@ export function AdminProvider({ children }) {
   };
 
   return (
-    <AdminContext.Provider value={{ isAdmin, setIsAdmin, loginAdmin, logoutAdmin }}>
+    <AdminContext.Provider
+      value={{ isAdmin, setIsAdmin, loginAdmin, logoutAdmin }}
+    >
       {children}
     </AdminContext.Provider>
   );

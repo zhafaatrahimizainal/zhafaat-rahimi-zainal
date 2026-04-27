@@ -39,6 +39,8 @@
 }
 
 .logo {
+  /* font: inherit; */
+  /* line-height: 1; */
   font-size: 22px;
   font-weight: 700;
   color: #0b2545;

@@ -1,40 +1,47 @@
-import "./AdminLoginModal.css"
+import "./AdminLoginModal.css";
 import { useState, useEffect } from "react";
 import { useAdmin } from "../context/AdminContext";
 import { createPortal } from "react-dom";
+import { useSite } from "../context/SiteContext";
 
 export default function AdminLoginModal({ isOpen, onClose }) {
+  const { site, loadingSite } = useSite();
   const { loginAdmin, setIsAdmin } = useAdmin();
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
 
   // ===== Close saat tekan ESC =====
   useEffect(() => {
-  if (!isOpen) return;
+    if (!isOpen) return;
 
-  const handleEsc = (e) => {
-    if (e.key === "Escape") onClose();
-  };
+    const handleEsc = (e) => {
+      if (e.key === "Escape") onClose();
+    };
 
-  // ===== LOCK SCROLL HALAMAN =====
-  document.body.style.overflow = "hidden";
+    // ===== LOCK SCROLL HALAMAN =====
+    document.body.style.overflow = "hidden";
 
-  window.addEventListener("keydown", handleEsc);
+    window.addEventListener("keydown", handleEsc);
 
-  return () => {
-    window.removeEventListener("keydown", handleEsc);
+    return () => {
+      window.removeEventListener("keydown", handleEsc);
 
-    // ===== BALIKKAN SCROLL SAAT MODAL TUTUP =====
-    document.body.style.overflow = "auto";
-  };
-}, [isOpen, onClose]);
+      // ===== BALIKKAN SCROLL SAAT MODAL TUTUP =====
+      document.body.style.overflow = "auto";
+    };
+  }, [isOpen, onClose]);
 
-  if (!isOpen) return null;
+  if (!isOpen || loadingSite || !site) return null;
+
+  const firstName = site.owner_name.split(" ")[0];
+  const displayName = firstName.charAt(0).toUpperCase() + firstName.slice(1);
+
+  // if (!isOpen) return null;
 
   const handleLogin = async () => {
     const success = await loginAdmin(password);
     if (success) {
-      setIsAdmin(true)
+      setIsAdmin(true);
       localStorage.setItem("isAdmin", "true");
       onClose();
       setPassword("");
@@ -47,13 +54,9 @@ export default function AdminLoginModal({ isOpen, onClose }) {
   const modalContent = (
     // ===== Klik area gelap = close =====
     <div className="modal-overlay" onClick={onClose}>
-      
       {/* stopPropagation supaya klik dalam box tidak close */}
-      <div 
-        className="modal-box"
-        onClick={(e) => e.stopPropagation()}
-      >
-        <h2>Hai Zhafaat</h2>
+      <div className="modal-box" onClick={(e) => e.stopPropagation()}>
+        <h2>Hai {displayName}</h2>
 
         <input
           type="password"
@@ -71,7 +74,5 @@ export default function AdminLoginModal({ isOpen, onClose }) {
     </div>
   );
 
-  return createPortal(
-    modalContent, document.getElementById("modal-root")
-  )
+  return createPortal(modalContent, document.getElementById("modal-root"));
 }

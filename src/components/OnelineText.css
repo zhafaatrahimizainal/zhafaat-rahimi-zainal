@@ -1,0 +1,69 @@
+.editable-wrapper {
+  position: relative;          /* 🔥 anchor absolute */
+  display: inline-block;
+}
+
+/* toolbar kiri atas */
+.edit-toolbar {
+  position: absolute;
+  bottom: -20px;
+  display: flex;
+  gap: 4px;
+}
+
+.edit-icon {
+  /* opacity: 1; */
+  cursor: pointer;
+  border: none;
+  background: transparent;
+  transition: 0.2s;
+}
+
+.edit-icon.idle:hover::after {
+  position: absolute;
+  left: 20px;
+  content: "edit logo";
+  font-size: 12px;
+  white-space: nowrap;
+  padding: 4px 8px;
+  background: black;
+  color: white;
+  opacity: 0.7;
+  border-radius: 6px;
+}
+
+
+.editable-input {
+  font-family: inherit;
+  background: transparent;
+  border: none;
+  outline: none;
+  padding: 0;
+  margin: 0;
+
+}
+
+.save-btn,
+.cancel-btn {
+  background: transparent;
+  transition: 0.2s;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+}
+
+.save-btn {
+  color: #22c55e;
+}
+
+.cancel-btn {
+  color: #ef4444;
+}
+
+.success {
+  color: #22c55e;
+}
+
+.error {
+  color: #ef4444;
+}

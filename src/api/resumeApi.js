@@ -1,31 +1,32 @@
 import { supabase } from "../lib/supabaseClient";
 import { base64ToBlob, generatePreviewFromFile } from "../utils/generatePreview";
 
-export const uploadResume = async (file) => {
+
+export const uploadResume = async (file,siteTheme, siteId) => {
     try {
         if (!file) throw new Error("No file selected");
         if (file.type !== "application/pdf") {
             throw new Error("File must be PDF");
         }
 
-        const fileName = "resume.pdf";
+        const filePath = `${siteId}/resume/resume.pdf`;
 
         const { error: fileError } = await supabase.storage
-            .from("resume")
-            .upload(fileName, file, {
+            .from(siteTheme)
+            .upload(filePath, file, {
                 cacheControl: "3600",
                 upsert: true,
             });
 
         if (fileError) throw fileError;
 
-        const previewName = "preview.png";
+        const previewPath = `${siteId}/resume/preview.png`;
         const previewBase64 = await generatePreviewFromFile(file);
         const previewBlob = base64ToBlob(previewBase64);
 
         const { error: previewError } = await supabase.storage
-            .from("resume")
-            .upload(previewName, previewBlob, {
+            .from(siteTheme)
+            .upload(previewPath, previewBlob, {
                 cacheControl: "3600",
                 upsert: true,
             });
@@ -34,14 +35,14 @@ export const uploadResume = async (file) => {
 
         // 5️⃣ Ambil public URL file
         const { data: fileData } = supabase.storage
-            .from("resume")
-            .getPublicUrl(fileName);
+            .from(siteTheme)
+            .getPublicUrl(filePath);
 
 
         // 6️⃣ Ambil public URL preview
         const { data: previewData } = supabase.storage
-            .from("resume")
-            .getPublicUrl(previewName);
+            .from(siteTheme)
+            .getPublicUrl(previewPath);
 
         const fileURL = fileData.publicUrl + `?t=${Date.now()}`;
         const previewURL = previewData.publicUrl + `?t=${Date.now()}`;
@@ -62,35 +63,39 @@ export const uploadResume = async (file) => {
 };
 
 // simpan / update URL resume + preview ke database
-export async function saveResumeURL(fileURL, previewURL) {
-    const { data, error } = await supabase
-        .from("settings")
-        .upsert(
-            {
-                key: "resume_data",
-                value: {
-                    fileURL,
-                    previewURL,
-                },
-            },
-            { onConflict: "key" }
-        );
+export async function saveResumeURL(fileURL, previewURL, siteId) {
+  const { data, error } = await supabase
+    .from("site_settings")
+    .upsert(
+      {
+        site_id: siteId,
+        key: "resume",
+        value: {
+          fileURL,
+          previewURL,
+        },
+      },
+      {
+        onConflict: "site_id,key", // 🔥 INI YANG PALING PENTING
+      }
+    );
 
-    if (error) {
-        console.error("Failed save resume data:", error);
-        throw error;
-    }
+  if (error) {
+    console.error("Failed save resume data:", error);
+    throw error;
+  }
 
-    return data;
+  return data;
 }
 
 // ambil URL resume + preview dari database saat app start
-export const getResumeURL = async () => {
+export const getResumeURL = async (siteId) => {
     try {
         const { data, error } = await supabase
-            .from("settings")
+            .from("site_settings")
             .select("value")
-            .eq("key", "resume_data")
+            .eq("site_id", siteId)
+            .eq("key", "resume")
             .single();
 
         if (error) throw error;

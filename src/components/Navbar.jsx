@@ -3,12 +3,17 @@ import "./Navbar.css";
 import AdminLoginModal from "./AdminLoginModal";
 import { useAdmin } from "../context/AdminContext";
 import ResumeButton from "./ResumeButton";
+import { useSite } from "../context/SiteContext";
+import Spinner from "./Spinner";
+import { updateOwnerName } from "../api/siteService";
+import OnelineText from "./OnelineText";
 
 export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [openModal, setOpenModal] = useState(false);
   const { isAdmin, logoutAdmin } = useAdmin();
+  const { site, setSite, loadingSite } = useSite();
 
   const scrollToSection = (id) => {
     const section = document.getElementById(id);
@@ -32,10 +37,24 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  const saveOwnerName = async (newName) => {
+    const updatedData = await updateOwnerName(site.id, newName);
+    setSite(updatedData);
+  };
+
   return (
     <header className={`navbar ${scrolled ? "scrolled" : ""}`}>
       <div className="nav-container">
-        <h2 className="logo">Zhafaat Rahimi Zainal</h2>
+        <OnelineText
+          name="logo"
+          value={site?.owner_name || "My Website"}
+          loading={loadingSite}
+          onSave={saveOwnerName}
+          as="h2"
+          isAdmin={isAdmin}
+          className="logo"
+        />
+
         <div className="nav-right-container">
           <ul className={`nav-links ${menuOpen ? "open" : ""}`}>
             <li onClick={() => scrollToSection("home")}>Home</li>

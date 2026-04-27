@@ -2,6 +2,7 @@ import { useRef, useState } from "react";
 import { useResume } from "../context/ResumeContext";
 import { PencilLine, Check, Loader2, X } from "lucide-react";
 import "./UploadResumeButton.css";
+import Spinner from "./Spinner";
 
 export default function UploadResumeButton() {
   const inputRef = useRef();
@@ -42,13 +43,13 @@ export default function UploadResumeButton() {
   const renderIcon = () => {
     switch (status) {
       case "loading":
-        return <Loader2 size={20} className="spin" />;
+        return <Spinner size={16}/>;
       case "success":
-        return <Check size={20} strokeWidth={3.5} />;
+        return <Check size={16} strokeWidth={3.5} />;
       case "error":
-        return <X size={20} strokeWidth={3.5} />;
+        return <X size={16} strokeWidth={3.5} />;
       default:
-        return <PencilLine size={20} />;
+        return <PencilLine size={16} />;
     }
   };
 
