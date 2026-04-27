@@ -28,8 +28,8 @@ export default function UploadResumeButton() {
       setStatus("success");
       resetStatus();
     } catch (err) {
-      console.error("ini muncul kah", err);
       setStatus("error");
+      console.log("pesan", err)
       resetStatus();
     }
 

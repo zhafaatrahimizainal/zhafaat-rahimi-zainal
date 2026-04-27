@@ -14,3 +14,14 @@ export async function compressPDF(file) {
     type: "application/pdf",
   });
 }
+
+export function validateResume(file) {
+  if (file.type !== "application/pdf") {
+    throw new Error("File harus PDF");
+  }
+
+  const maxSize = 5 * 1024 * 1024; // 5MB sebelum compress
+  if (file.size > maxSize) {
+    throw new Error("Ukuran maksimal 5MB");
+  }
+}

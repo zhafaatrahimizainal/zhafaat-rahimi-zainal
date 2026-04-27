@@ -3,22 +3,25 @@ import "./ResumeButton.css";
 import { useResume } from "../context/ResumeContext";
 import { useAdmin } from "../context/AdminContext";
 import UploadResumeButton from "./UploadResumeButton";
+import { getResumeSignedUrl } from "../api/resumeApi";
+import { useSite } from "../context/SiteContext";
 
 export default function ResumeButton() {
   const [showPreview, setShowPreview] = useState(false);
   const { isAdmin } = useAdmin();
-  const { resumeURL, previewImage } = useResume();
+  const {site} = useSite()
+  const { previewImage } = useResume();
 
   // console.log(previewImage)
 
-  const openResume = () => {
-    if (!resumeURL) {
-      alert("Resume belum tersedia");
-      return;
-    }
-    console.log(resumeURL);
-
-    window.open(resumeURL, "_blank", "noopener,noreferrer");
+  const openResume =  async () => {
+    try {
+    const url = await getResumeSignedUrl(site.id);
+    window.open(url, "_blank", "noopener,noreferrer");
+  } catch (err) {
+    alert("Resume belum tersedia");
+    console.error(err);
+  }
   };
 
   return (
