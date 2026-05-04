@@ -31,23 +31,23 @@ export default function AdminLoginModal({ isOpen, onClose }) {
     };
   }, [isOpen, onClose]);
 
-  if (!isOpen || loadingSite || !site) return null;
+  if (!isOpen) return null;
 
-  const firstName = site.owner_name.split(" ")[0];
-  const displayName = firstName.charAt(0).toUpperCase() + firstName.slice(1);
+  const rawName = site?.owner_name?.split(" ")[0];
+  const displayName = rawName ? rawName.charAt(0).toUpperCase() + rawName.slice(1) : "User";
 
   // if (!isOpen) return null;
 
   const handleLogin = async () => {
+    setError("");
     const success = await loginAdmin(password);
     if (success) {
       setIsAdmin(true);
       localStorage.setItem("isAdmin", "true");
       onClose();
       setPassword("");
-      setError("");
     } else {
-      setError("it's wrong, who is this?");
+      setError("It's wrong, who is this?");
     }
   };
 
@@ -74,5 +74,9 @@ export default function AdminLoginModal({ isOpen, onClose }) {
     </div>
   );
 
-  return createPortal(modalContent, document.getElementById("modal-root"));
+  const portalRoot = document.getElementById("modal-root")
+  // safety: kalau root belum ada
+  if (!portalRoot) return null;
+
+  return createPortal(modalContent, portalRoot);
 }
