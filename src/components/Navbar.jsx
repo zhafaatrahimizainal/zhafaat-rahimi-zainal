@@ -1,95 +1,102 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
+import { Cloud, Menu, X } from "lucide-react";
 import "./Navbar.css";
-import AdminLoginModal from "./AdminLoginModal";
-import { useAdmin } from "../context/AdminContext";
-import ResumeButton from "./ResumeButton";
-import { useSite } from "../context/SiteContext";
-import Spinner from "./Spinner";
-import { updateOwnerName } from "../api/siteService";
-import OnelineText from "./OnelineText";
+import Logo from "../assets/logo.jpeg";
 
-export default function Navbar() {
-  const [menuOpen, setMenuOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
-  const [openModal, setOpenModal] = useState(false);
-  const { isAdmin, logoutAdmin } = useAdmin();
-  const { site, setSite, loadingSite } = useSite();
+function Navbar() {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-  const scrollToSection = (id) => {
-    const section = document.getElementById(id);
-    if (section) {
-      section.scrollIntoView({ behavior: "smooth" });
-      setMenuOpen(false);
-    }
-  };
-
-  // DETEKSI SCROLL
-  useEffect(() => {
-    const handleScroll = () => {
-      if (window.scrollY > 50) {
-        setScrolled(true);
-      } else {
-        setScrolled(false);
-      }
-    };
-
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-
-  const saveOwnerName = async (newName) => {
-    const updatedData = await updateOwnerName(site.id, newName);
-    setSite(updatedData);
-  };
+  const toggleMenu = () => setIsMenuOpen((prev) => !prev);
+  const closeMenu = () => setIsMenuOpen(false);
 
   return (
-    <header className={`navbar ${scrolled ? "scrolled" : ""}`}>
-      <div className="nav-container">
-        <OnelineText
-          name="logo"
-          value={site?.owner_name || "My Website"}
-          loading={loadingSite}
-          onSave={saveOwnerName}
-          as="h2"
-          isAdmin={isAdmin}
-          className="logo"
-        />
+    <header className="navbar-header">
+      <div className="navbar-container">
+        {/* Brand Logo */}
+        <a href="#home" className="navbar-logo" onClick={closeMenu}>
+          <div className="logo-icon">
+            {/* <Cloud size={24} strokeWidth={2} /> */}
+            <img
+              src={Logo}
+              alt="Zhafaat Rahimi Zainal"
+              className="logo-img"
+            />
+          </div>
+          <div className="logo-text">
+            <span className="logo-title">zhafaat</span>
+            <span className="logo-subtitle">Web Maker</span>
+          </div>
+        </a>
 
-        <div className="nav-right-container">
-          <ul className={`nav-links ${menuOpen ? "open" : ""}`}>
-            <li onClick={() => scrollToSection("home")}>Home</li>
-            <li onClick={() => scrollToSection("about")}>About</li>
-            <li onClick={() => scrollToSection("portfolio")}>Portfolio</li>
-            <li onClick={() => scrollToSection("contact")}>Contact</li>
-          </ul>
-          <ResumeButton />
-          {/* <button className="resume-btn">Resume PDF</button> */}
+        {/* Desktop Nav */}
+        <nav className="desktop-nav">
+          <a href="#home" className="nav-link active">
+            Home
+          </a>
+          <a href="#about" className="nav-link">
+            About
+          </a>
+          <a href="#services" className="nav-link">
+            Services
+          </a>
+          <a href="#projects" className="nav-link">
+            Projects
+          </a>
+          <a href="#contact" className="nav-link">
+            Contact
+          </a>
+        </nav>
+
+        {/* CTA */}
+        <div className="desktop-cta">
+          <a href="#contact" className="nav-cta-btn">
+            Let's Talk
+          </a>
         </div>
 
-        {!isAdmin ? (
-          <button className="itsme-btn" onClick={() => setOpenModal(true)}>
-            It's me
-          </button>
-        ) : (
-          <button className="itsme-btn" onClick={logoutAdmin}>
-            Logout
-          </button>
-        )}
-
-        <AdminLoginModal
-          isOpen={openModal}
-          onClose={() => setOpenModal(false)}
-        />
-
-        <div
-          className={`hamburger ${menuOpen ? "active" : ""}`}
-          onClick={() => setMenuOpen(!menuOpen)}
+        {/* Mobile Toggle */}
+        <button
+          className="mobile-toggle-btn"
+          onClick={toggleMenu}
+          aria-label="Toggle navigation menu"
         >
-          <span></span>
-          <span></span>
-          <span></span>
-        </div>
+          {isMenuOpen ? (
+            <X size={24} strokeWidth={2} />
+          ) : (
+            <Menu size={24} strokeWidth={2} />
+          )}
+        </button>
       </div>
+
+      {/* Mobile Drawer */}
+      {isMenuOpen && (
+        <div className="mobile-dropdown">
+          <a href="#home" onClick={closeMenu} className="mobile-link active">
+            Home
+          </a>
+          <a href="#about" onClick={closeMenu} className="mobile-link">
+            About
+          </a>
+          <a href="#services" onClick={closeMenu} className="mobile-link">
+            Services
+          </a>
+          <a href="#projects" onClick={closeMenu} className="mobile-link">
+            Projects
+          </a>
+          <a href="#contact" onClick={closeMenu} className="mobile-link">
+            Contact
+          </a>
+          <a
+            href="#contact"
+            onClick={closeMenu}
+            className="btn-primary mobile-cta"
+          >
+            Start a Project
+          </a>
+        </div>
+      )}
     </header>
   );
 }
+
+export default Navbar;
