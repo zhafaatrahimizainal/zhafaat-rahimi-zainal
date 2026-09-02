@@ -1,19 +1,21 @@
-import { useState } from "react";
-import { Cloud, Menu, X } from "lucide-react";
-import "./Navbar.css";
 import Logo from "../assets/logo.jpeg";
+import { useState } from 'react';
+import { NavLink, Link } from 'react-router-dom';
+import { Cloud, Menu, X } from 'lucide-react';
+import './Navbar.css';
+import { getWhatsAppUrl } from "../constants/contact";
 
 function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-  const toggleMenu = () => setIsMenuOpen((prev) => !prev);
+  const toggleMenu = () => setIsMenuOpen(prev => !prev);
   const closeMenu = () => setIsMenuOpen(false);
 
   return (
     <header className="navbar-header">
       <div className="navbar-container">
         {/* Brand Logo */}
-        <a href="#home" className="navbar-logo" onClick={closeMenu}>
+        <Link to="/" className="navbar-logo" onClick={closeMenu}>
           <div className="logo-icon">
             {/* <Cloud size={24} strokeWidth={2} /> */}
             <img
@@ -26,73 +28,44 @@ function Navbar() {
             <span className="logo-title">zhafaat</span>
             <span className="logo-subtitle">Web Maker</span>
           </div>
-        </a>
+        </Link>
 
         {/* Desktop Nav */}
         <nav className="desktop-nav">
-          <a href="#home" className="nav-link active">
-            Home
-          </a>
-          <a href="#about" className="nav-link">
-            About
-          </a>
-          <a href="#services" className="nav-link">
-            Services
-          </a>
-          <a href="#projects" className="nav-link">
-            Projects
-          </a>
-          <a href="#contact" className="nav-link">
-            Contact
-          </a>
+          <NavLink to="/" end className={({ isActive }) => isActive ? 'nav-link active' : 'nav-link'}>Home</NavLink>
+          <NavLink to="/about" className={({ isActive }) => isActive ? 'nav-link active' : 'nav-link'}>About</NavLink>
+          <NavLink to="/services" className={({ isActive }) => isActive ? 'nav-link active' : 'nav-link'}>Services</NavLink>
+          <NavLink to="/projects" className={({ isActive }) => isActive ? 'nav-link active' : 'nav-link'}>Projects</NavLink>
+          <NavLink to="/contact" className={({ isActive }) => isActive ? 'nav-link active' : 'nav-link'}>Contact</NavLink>
         </nav>
 
-        {/* CTA */}
+        {/* WhatsApp CTA */}
         <div className="desktop-cta">
-          <a href="#contact" className="nav-cta-btn">
+          <a
+            href={getWhatsAppUrl()}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="nav-cta-btn"
+          >
             Let's Talk
           </a>
         </div>
 
         {/* Mobile Toggle */}
-        <button
-          className="mobile-toggle-btn"
-          onClick={toggleMenu}
-          aria-label="Toggle navigation menu"
-        >
-          {isMenuOpen ? (
-            <X size={24} strokeWidth={2} />
-          ) : (
-            <Menu size={24} strokeWidth={2} />
-          )}
+        <button className="mobile-toggle-btn" onClick={toggleMenu} aria-label="Toggle navigation menu">
+          {isMenuOpen ? <X size={24} strokeWidth={2} /> : <Menu size={24} strokeWidth={2} />}
         </button>
       </div>
 
       {/* Mobile Drawer */}
       {isMenuOpen && (
         <div className="mobile-dropdown">
-          <a href="#home" onClick={closeMenu} className="mobile-link active">
-            Home
-          </a>
-          <a href="#about" onClick={closeMenu} className="mobile-link">
-            About
-          </a>
-          <a href="#services" onClick={closeMenu} className="mobile-link">
-            Services
-          </a>
-          <a href="#projects" onClick={closeMenu} className="mobile-link">
-            Projects
-          </a>
-          <a href="#contact" onClick={closeMenu} className="mobile-link">
-            Contact
-          </a>
-          <a
-            href="#contact"
-            onClick={closeMenu}
-            className="btn-primary mobile-cta"
-          >
-            Start a Project
-          </a>
+          <NavLink to="/" end onClick={closeMenu} className={({ isActive }) => isActive ? 'mobile-link active' : 'mobile-link'}>Home</NavLink>
+          <NavLink to="/about" onClick={closeMenu} className={({ isActive }) => isActive ? 'mobile-link active' : 'mobile-link'}>About</NavLink>
+          <NavLink to="/services" onClick={closeMenu} className={({ isActive }) => isActive ? 'mobile-link active' : 'mobile-link'}>Services</NavLink>
+          <NavLink to="/projects" onClick={closeMenu} className={({ isActive }) => isActive ? 'mobile-link active' : 'mobile-link'}>Projects</NavLink>
+          <NavLink to="/contact" onClick={closeMenu} className={({ isActive }) => isActive ? 'mobile-link active' : 'mobile-link'}>Contact</NavLink>
+          <Link to="/contact" onClick={closeMenu} className="btn-primary mobile-cta">Start a Project</Link>
         </div>
       )}
     </header>

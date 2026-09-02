@@ -3,13 +3,21 @@ import ProfileCard from "./ProfileCard";
 import TechStack from "./TechStack";
 import ProjectStatus from "./ProjectStatus";
 import "./Hero.css";
+import { Link } from "react-router-dom";
 
 function Hero() {
   return (
     <div className="bento-grid">
       {/* Profile Widget */}
       <div className="grid-area-profile">
-        <ProfileCard />
+        <Link
+          to="/about"
+          style={{
+            textDecoration: "none",
+          }}
+        >
+          <ProfileCard />
+        </Link>
       </div>
 
       {/* Main Pitch Card */}
@@ -33,17 +41,17 @@ function Hero() {
         </div>
 
         <div className="hero-actions">
-          <a href="#contact" className="btn-primary">
+          <Link to="/services" className="btn-primary">
             Let's Build Something
             <ArrowRight
               size={20}
               strokeWidth={3}
               style={{ marginLeft: "0.5rem" }}
             />
-          </a>
-          <a href="#projects" className="btn-secondary">
+          </Link>
+          <Link to="/projects" className="btn-secondary">
             View My Work
-          </a>
+          </Link>
         </div>
       </section>
 

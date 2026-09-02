@@ -1,4 +1,4 @@
-import profileImage from "../assets/Line_Profile.jpeg";
+import profileImage from "../assets/Profile.jpeg";
 import "./ProfileCard.css";
 
 function ProfileCard() {
