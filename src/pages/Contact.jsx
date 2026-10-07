@@ -1,10 +1,13 @@
-import { Mail, MapPin, Send, MessageSquare } from 'lucide-react';
+import { useState } from 'react';
+import { Mail, MapPin, Send, MessageSquare, CheckCircle2 } from 'lucide-react';
 import './Contact.css';
 
 function Contact() {
+  const [submitted, setSubmitted] = useState(false);
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    alert("Thank you for reaching out! Your message has been received.");
+    setSubmitted(true);
   };
 
   return (
@@ -60,26 +63,46 @@ function Contact() {
 
         {/* Form Box */}
         <div className="glass-card contact-form-card">
-          <form onSubmit={handleSubmit} className="contact-form">
-            <div className="form-group">
-              <label htmlFor="name">Your Name</label>
-              <input type="text" id="name" required placeholder="e.g. Alex Smith" />
+          {submitted ? (
+            <div style={{ padding: '2rem 1rem', textAlign: 'center' }}>
+              <div style={{ display: 'inline-flex', padding: '0.75rem', borderRadius: '50%', background: '#dcfce7', color: '#16a34a', marginBottom: '1rem' }}>
+                <CheckCircle2 size={32} />
+              </div>
+              <h3 style={{ fontSize: '1.25rem', fontWeight: 600, marginBottom: '0.5rem', color: '#0f172a' }}>Message Sent!</h3>
+              <p style={{ color: '#64748b', marginBottom: '1.5rem', fontSize: '0.95rem' }}>
+                Thank you for reaching out! Your message has been received. I will respond within 24 hours.
+              </p>
+              <button
+                type="button"
+                onClick={() => setSubmitted(false)}
+                className="btn-secondary"
+                style={{ cursor: 'pointer' }}
+              >
+                Send Another Message
+              </button>
             </div>
+          ) : (
+            <form onSubmit={handleSubmit} className="contact-form">
+              <div className="form-group">
+                <label htmlFor="name">Your Name</label>
+                <input type="text" id="name" required placeholder="e.g. Alex Smith" />
+              </div>
 
-            <div className="form-group">
-              <label htmlFor="email">Email Address</label>
-              <input type="email" id="email" required placeholder="alex@example.com" />
-            </div>
+              <div className="form-group">
+                <label htmlFor="email">Email Address</label>
+                <input type="email" id="email" required placeholder="alex@example.com" />
+              </div>
 
-            <div className="form-group">
-              <label htmlFor="message">Project Details / Message</label>
-              <textarea id="message" rows="5" required placeholder="Tell me about your website goals..."></textarea>
-            </div>
+              <div className="form-group">
+                <label htmlFor="message">Project Details / Message</label>
+                <textarea id="message" rows="5" required placeholder="Tell me about your website goals..."></textarea>
+              </div>
 
-            <button type="submit" className="btn-primary form-submit-btn">
-              Send Message <Send size={18} style={{ marginLeft: '0.5rem' }} />
-            </button>
-          </form>
+              <button type="submit" className="btn-primary form-submit-btn">
+                Send Message <Send size={18} style={{ marginLeft: '0.5rem' }} />
+              </button>
+            </form>
+          )}
         </div>
       </div>
     </div>

@@ -1,35 +1,36 @@
 import { Layers, Layout, Server, Gauge, CheckCircle2 } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import ResponsiveShowcase from '../components/ResponsiveShowcase';
 import './Services.css';
 
-function Services() {
-  const serviceList = [
-    {
-      icon: Layout,
-      title: "Frontend & Web Architecture",
-      desc: "Building responsive, modern, and accessible websites using React, Next.js, and Tailwind CSS. Focus on fast load times and seamless interactions.",
-      deliverables: ["Single Page Applications", "Responsive Web Layouts", "Component Design Systems"]
-    },
-    {
-      icon: Server,
-      title: "Full-Stack Development",
-      desc: "Creating scalable backends, database models, and API integrations with Node.js, Express, and PostgreSQL to power dynamic web applications.",
-      deliverables: ["RESTful & GraphQL APIs", "Database Schema Design", "Authentication & Security"]
-    },
-    {
-      icon: Layers,
-      title: "UI/UX & Interactive Design",
-      desc: "Designing cohesive visual styles, component tokens, wireframes, and interactive prototypes with a focus on usability and clarity.",
-      deliverables: ["Wireframes & Prototypes", "Design Tokens & Tokens System", "User Flow Optimization"]
-    },
-    {
-      icon: Gauge,
-      title: "Performance & Optimization",
-      desc: "Refactoring legacy client code, auditing site performance, fixing layout shifts, and tuning core web vitals for maximum efficiency.",
-      deliverables: ["Lighthouse Optimization", "Code Refactoring", "SEO & Metadata Tuning"]
-    }
-  ];
+const SERVICES = [
+  {
+    icon: Layout,
+    title: "Frontend & Web Architecture",
+    desc: "Building responsive, modern, and accessible websites using React, Next.js, and Tailwind CSS. Focus on fast load times and seamless interactions.",
+    deliverables: ["Single Page Applications", "Responsive Web Layouts", "Component Design Systems"]
+  },
+  {
+    icon: Server,
+    title: "Full-Stack Development",
+    desc: "Creating scalable backends, database models, and API integrations with Node.js, Express, and PostgreSQL to power dynamic web applications.",
+    deliverables: ["RESTful & GraphQL APIs", "Database Schema Design", "Authentication & Security"]
+  },
+  {
+    icon: Layers,
+    title: "UI/UX & Interactive Design",
+    desc: "Designing cohesive visual styles, component tokens, wireframes, and interactive prototypes with a focus on usability and clarity.",
+    deliverables: ["Wireframes & Prototypes", "Design Tokens & Tokens System", "User Flow Optimization"]
+  },
+  {
+    icon: Gauge,
+    title: "Performance & Optimization",
+    desc: "Refactoring legacy client code, auditing site performance, fixing layout shifts, and tuning core web vitals for maximum efficiency.",
+    deliverables: ["Lighthouse Optimization", "Code Refactoring", "SEO & Metadata Tuning"]
+  }
+];
 
+function Services() {
   return (
     <div className="services-container">
       {/* Header */}
@@ -45,10 +46,13 @@ function Services() {
           Whether you need a high-converting portfolio, a dynamic SaaS web application, or custom backend services, I deliver clean and maintainable solutions.
         </p>
       </section>
+      
+      {/* 3D Multi-Device Screen Showcase */}
+      <ResponsiveShowcase />
 
       {/* Services Grid */}
       <div className="services-grid">
-        {serviceList.map((service, idx) => {
+        {SERVICES.map((service, idx) => {
           const Icon = service.icon;
           return (
             <div key={idx} className="glass-card service-card">

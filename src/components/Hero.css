@@ -7,18 +7,22 @@
 
 .grid-area-profile {
   grid-column: span 4;
+  min-width: 0;
 }
 
 .grid-area-pitch {
   grid-column: span 8;
+  min-width: 0;
 }
 
 .grid-area-stack {
   grid-column: span 7;
+  min-width: 0;
 }
 
 .grid-area-status {
   grid-column: span 5;
+  min-width: 0;
 }
 
 /* Hero Pitch Styling */
@@ -26,7 +30,8 @@
   padding: 3rem;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: flex-start;
+  gap: 1.75rem;
 }
 
 .eyebrow-badge {
@@ -42,7 +47,7 @@
   font-weight: 700;
   letter-spacing: 0.05em;
   text-transform: uppercase;
-  margin-bottom: 1.5rem;
+  margin-bottom: 1.25rem;
 }
 
 .hero-headline {
@@ -51,7 +56,7 @@
   color: var(--color-text-main);
   letter-spacing: -0.03em;
   line-height: 1.15;
-  margin-bottom: 1.5rem;
+  margin-bottom: 1.25rem;
 }
 
 .gradient-text {
@@ -65,7 +70,7 @@
   color: #475569;
   max-width: 42rem;
   line-height: 1.6;
-  margin-bottom: 2rem;
+  margin-bottom: 0;
 }
 
 .hero-actions {
@@ -73,29 +78,65 @@
   flex-wrap: wrap;
   align-items: center;
   gap: 1rem;
+  margin-top: 0.25rem;
 }
 
 /* Breakpoint Adaptations */
 @media (max-width: 1024px) {
-  .grid-area-profile { grid-column: span 5; }
-  .grid-area-pitch { grid-column: span 7; }
-  .hero-headline { font-size: 2.25rem; }
-  .hero-pitch-card { padding: 2rem; }
-}
-
-@media (max-width: 768px) {
   .bento-grid {
     grid-template-columns: 1fr;
+    gap: 1.25rem;
   }
-  
+
   .grid-area-profile,
   .grid-area-pitch,
   .grid-area-stack,
   .grid-area-status {
     grid-column: span 1;
   }
-  
+
+  .hero-pitch-card {
+    padding: 2.25rem;
+    gap: 1.5rem;
+  }
+
   .hero-headline {
-    font-size: 2rem;
+    font-size: 2.25rem;
+    margin-bottom: 1rem;
+  }
+
+  .hero-description {
+    font-size: 1.05rem;
+    margin-bottom: 0;
+  }
+
+  .hero-actions {
+    margin-top: 0.5rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .hero-pitch-card {
+    padding: 1.5rem;
+    gap: 1.25rem;
+  }
+
+  .eyebrow-badge {
+    margin-bottom: 1rem;
+  }
+
+  .hero-headline {
+    font-size: 1.85rem;
+    margin-bottom: 0.875rem;
+  }
+
+  .hero-description {
+    font-size: 0.95rem;
+    margin-bottom: 0;
+  }
+
+  .hero-actions {
+    margin-top: 0.25rem;
+    gap: 0.75rem;
   }
 }

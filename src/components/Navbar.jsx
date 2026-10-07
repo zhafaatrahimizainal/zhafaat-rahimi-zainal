@@ -1,7 +1,7 @@
 import Logo from "../assets/logo.jpeg";
 import { useState } from 'react';
 import { NavLink, Link } from 'react-router-dom';
-import { Cloud, Menu, X } from 'lucide-react';
+import { Menu, X } from 'lucide-react';
 import './Navbar.css';
 import { getWhatsAppUrl } from "../constants/contact";
 
@@ -22,6 +22,7 @@ function Navbar() {
               src={Logo}
               alt="Zhafaat Rahimi Zainal"
               className="logo-img"
+              referrerPolicy="no-referrer"
             />
           </div>
           <div className="logo-text">

@@ -1,34 +1,35 @@
-import { FolderGit2, ExternalLink, PawPrint } from 'lucide-react';
+import { FolderGit2, ExternalLink } from 'lucide-react';
+import { GithubIcon } from '../components/SocialIcons';
 import './Projects.css';
 
-function Projects() {
-  const projectList = [
-    {
-      title: "Profile & Portfolio Web ",
-      category: "Personal Brand & Web UI",
-      desc: "A glassmorphic, Bento-grid developer personal website featuring dark/light dynamic styling, Lucide iconography, and responsive layouts.",
-      tags: ["React", "Tailwind CSS", "Design Tokens"],
-      demoUrl: "https://zhafaat.dev",
-      githubUrl: "https://github.com"
-    },
-    {
-      title: "Scientific Data Management Portal",
-      category: "Full-Stack Web Application",
-      desc: "An analytical platform designed for data tracking, document previewing, and PostgreSQL database queries with high-throughput response times.",
-      tags: ["Next.js", "Node.js", "PostgreSQL", "REST API"],
-      demoUrl: "https://example.com",
-      githubUrl: "https://github.com"
-    },
-    {
-      title: "Interactive Services Dashboard",
-      category: "SaaS & Dashboard UI",
-      desc: "A responsive client dashboard focused on real-time task status tracking, micro-interactions, and accessible UI components.",
-      tags: ["React", "Lucide Icons", "CSS Modules"],
-      demoUrl: "https://example.com",
-      githubUrl: "https://github.com"
-    }
-  ];
+const PROJECTS = [
+  {
+    title: "Profile & Portfolio Web ",
+    category: "Personal Brand & Web UI",
+    desc: "A glassmorphic, Bento-grid developer personal website featuring dark/light dynamic styling, Lucide iconography, and responsive layouts.",
+    tags: ["React", "Tailwind CSS", "Design Tokens"],
+    demoUrl: "https://zhafaat.dev",
+    githubUrl: "https://github.com"
+  },
+  {
+    title: "Scientific Data Management Portal",
+    category: "Full-Stack Web Application",
+    desc: "An analytical platform designed for data tracking, document previewing, and PostgreSQL database queries with high-throughput response times.",
+    tags: ["Next.js", "Node.js", "PostgreSQL", "REST API"],
+    demoUrl: "https://example.com",
+    githubUrl: "https://github.com"
+  },
+  {
+    title: "Interactive Services Dashboard",
+    category: "SaaS & Dashboard UI",
+    desc: "A responsive client dashboard focused on real-time task status tracking, micro-interactions, and accessible UI components.",
+    tags: ["React", "Lucide Icons", "CSS Modules"],
+    demoUrl: "https://example.com",
+    githubUrl: "https://github.com"
+  }
+];
 
+function Projects() {
   return (
     <div className="projects-container">
       {/* Header */}
@@ -47,7 +48,7 @@ function Projects() {
 
       {/* Project Cards Grid */}
       <div className="projects-grid">
-        {projectList.map((project, index) => (
+        {PROJECTS.map((project, index) => (
           <div key={index} className="glass-card project-card">
             <div className="project-card-top">
               <span className="project-category">{project.category}</span>
@@ -67,7 +68,7 @@ function Projects() {
                   <ExternalLink size={16} /> Live Preview
                 </a>
                 <a href={project.githubUrl} target="_blank" rel="noreferrer" className="project-link-btn secondary">
-                  <PawPrint size={16} /> code
+                  <GithubIcon size={16} /> Code
                 </a>
               </div>
             </div>

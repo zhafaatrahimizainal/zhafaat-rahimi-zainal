@@ -9,52 +9,52 @@ import {
   Workflow,
 } from "lucide-react";
 
-function TechStack() {
-  const stacks = [
-    {
-      name: "React / Next.js",
-      sub: "Frontend",
-      bg: "#cffaff",
-      color: "#0891b2",
-      icon: Atom,
-    },
-    {
-      name: "Tailwind CSS",
-      sub: "Styling",
-      bg: "#ccfbf1",
-      color: "#0d9488",
-      icon: Palette,
-    },
-    {
-      name: "Node / Express",
-      sub: "Backend",
-      bg: "#d1fae5",
-      color: "#059669",
-      icon: Server,
-    },
-    {
-      name: "UI/UX Design",
-      sub: "Figma Prototyping",
-      bg: "#f3e8ff",
-      color: "#9333ea",
-      icon: PenTool,
-    },
-    {
-      name: "PostgreSQL",
-      sub: "Databases",
-      bg: "#dbeafe",
-      color: "#2563eb",
-      icon: Database,
-    },
-    {
-      name: "REST & GraphQL",
-      sub: "Integration",
-      bg: "#fef3c7",
-      color: "#d97706",
-      icon: Workflow,
-    },
-  ];
+const STACKS = [
+  {
+    name: "React / Next.js",
+    sub: "Frontend",
+    bg: "#cffaff",
+    color: "#0891b2",
+    icon: Atom,
+  },
+  {
+    name: "Tailwind CSS",
+    sub: "Styling",
+    bg: "#ccfbf1",
+    color: "#0d9488",
+    icon: Palette,
+  },
+  {
+    name: "Node / Express",
+    sub: "Backend",
+    bg: "#d1fae5",
+    color: "#059669",
+    icon: Server,
+  },
+  {
+    name: "UI/UX Design",
+    sub: "Figma Prototyping",
+    bg: "#f3e8ff",
+    color: "#9333ea",
+    icon: PenTool,
+  },
+  {
+    name: "PostgreSQL",
+    sub: "Databases",
+    bg: "#dbeafe",
+    color: "#2563eb",
+    icon: Database,
+  },
+  {
+    name: "REST & GraphQL",
+    sub: "Integration",
+    bg: "#fef3c7",
+    color: "#d97706",
+    icon: Workflow,
+  },
+];
 
+function TechStack() {
   return (
     <div className="glass-card tech-card">
       <div className="tech-header">
@@ -71,7 +71,7 @@ function TechStack() {
       </div>
 
       <div className="tech-grid">
-        {stacks.map((item) => {
+        {STACKS.map((item) => {
           const IconComponent = item.icon;
           return (
             <div key={item.name} className="tech-item">

@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
-import { User, PawPrint, Share2, Mail } from 'lucide-react';
+import { User, Mail } from 'lucide-react';
+import { GithubIcon, LinkedinIcon } from './SocialIcons';
 import './Footer.css';
 
 function Footer() {
@@ -27,10 +28,10 @@ function Footer() {
 
           <div className="footer-socials">
             <a href="https://github.com" target="_blank" rel="noreferrer" aria-label="GitHub">
-              <PawPrint size={18} />
+              <GithubIcon size={18} />
             </a>
             <a href="https://linkedin.com" target="_blank" rel="noreferrer" aria-label="LinkedIn">
-              <Share2 size={18} />
+              <LinkedinIcon size={18} />
             </a>
             <a href="mailto:zhafaat.rahimi@icloud.com" target="_blank" rel="noreferrer" aria-label="Email">
               <Mail size={18} />

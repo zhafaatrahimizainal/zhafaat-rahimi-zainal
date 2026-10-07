@@ -1,0 +1,8 @@
+{
+  "name": "Zhafaat Rahimi Zainal - Portfolio",
+  "description": "Personal portfolio website of Zhafaat Rahimi Zainal, S.Si — Full-Stack Developer and UI/UX enthusiast showcasing featured projects, services, capabilities, and contact details.",
+  "permissions": [],
+  "capabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
