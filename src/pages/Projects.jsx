@@ -1,32 +1,32 @@
-import { FolderGit2, ExternalLink } from 'lucide-react';
-import { GithubIcon } from '../components/SocialIcons';
-import './Projects.css';
+import { FolderGit2, ExternalLink } from "lucide-react";
+import { GithubIcon } from "../components/SocialIcons";
+import "./Projects.css";
 
 const PROJECTS = [
   {
-    title: "Profile & Portfolio Web ",
-    category: "Personal Brand & Web UI",
-    desc: "A glassmorphic, Bento-grid developer personal website featuring dark/light dynamic styling, Lucide iconography, and responsive layouts.",
-    tags: ["React", "Tailwind CSS", "Design Tokens"],
-    demoUrl: "https://zhafaat.dev",
-    githubUrl: "https://github.com"
+    title: "Electrical Lab",
+    category: "Electrical Engineering & Education",
+    desc: "An interactive electrical laboratory website designed to explore electrical concepts, experiment with circuits, and visualize engineering principles through hands-on learning and simulation.",
+    tags: ["Electrical Engineering", "Circuit Simulation", "Education"],
+    demoUrl: "https://electrical-lab.netlify.app/",
+    githubUrl: "https://github.com/zhafaatrahimizainal/Electrical-Lab.git",
   },
   {
-    title: "Scientific Data Management Portal",
-    category: "Full-Stack Web Application",
-    desc: "An analytical platform designed for data tracking, document previewing, and PostgreSQL database queries with high-throughput response times.",
-    tags: ["Next.js", "Node.js", "PostgreSQL", "REST API"],
-    demoUrl: "https://example.com",
-    githubUrl: "https://github.com"
+    title: "HealtyWay",
+    category: "Food & Beverage Web UI",
+    desc: "A modern food and beverage website showcasing artisanal milk and fresh fruit drinks through an engaging visual experience, product-focused layouts, and a refreshing brand identity.",
+    tags: ["Food & Beverage", "Product Showcase", "Web Design"],
+    demoUrl: "https://healtyway.netlify.app/",
+    githubUrl: "https://github.com/zhafaatrahimizainal/HealtyWay.git",
   },
   {
-    title: "Interactive Services Dashboard",
-    category: "SaaS & Dashboard UI",
-    desc: "A responsive client dashboard focused on real-time task status tracking, micro-interactions, and accessible UI components.",
-    tags: ["React", "Lucide Icons", "CSS Modules"],
-    demoUrl: "https://example.com",
-    githubUrl: "https://github.com"
-  }
+    title: "Semiconductor Era", // Update based on your project title
+    category: "Web Application", // e.g., "Educational / Tech Platform"
+    desc: "A web platform dedicated to semiconductor technology, industry insights, and educational resources.",
+    tags: ["React", "JavaScript", "CSS"], // Update with the technologies used
+    demoUrl: "https://semiconductorera.netlify.app",
+    githubUrl: "https://github.com/zhafaatrahimizainal/Semiconductor-Era.git", // Replace with your repository link
+  },
 ];
 
 function Projects() {
@@ -39,10 +39,13 @@ function Projects() {
           <span>PORTFOLIO & WORK</span>
         </div>
         <h1 className="page-title">
-          Featured Projects & <span className="gradient-text">Digital Products.</span>
+          Featured Projects &{" "}
+          <span className="gradient-text">Digital Products.</span>
         </h1>
         <p className="page-description">
-          A selection of modern web development projects showcasing full-stack capabilities, clean user interfaces, and intentional UX implementation.
+          A selection of modern web development projects showcasing full-stack
+          capabilities, clean user interfaces, and intentional UX
+          implementation.
         </p>
       </section>
 
@@ -59,15 +62,27 @@ function Projects() {
             <div className="project-card-bottom">
               <div className="project-tags">
                 {project.tags.map((tag, tIdx) => (
-                  <span key={tIdx} className="project-tag-item">{tag}</span>
+                  <span key={tIdx} className="project-tag-item">
+                    {tag}
+                  </span>
                 ))}
               </div>
 
               <div className="project-actions">
-                <a href={project.demoUrl} target="_blank" rel="noreferrer" className="project-link-btn primary">
+                <a
+                  href={project.demoUrl}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="project-link-btn primary"
+                >
                   <ExternalLink size={16} /> Live Preview
                 </a>
-                <a href={project.githubUrl} target="_blank" rel="noreferrer" className="project-link-btn secondary">
+                <a
+                  href={project.githubUrl}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="project-link-btn secondary"
+                >
                   <GithubIcon size={16} /> Code
                 </a>
               </div>

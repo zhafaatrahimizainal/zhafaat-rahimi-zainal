@@ -27,7 +27,7 @@ function Footer() {
           </nav>
 
           <div className="footer-socials">
-            <a href="https://github.com" target="_blank" rel="noreferrer" aria-label="GitHub">
+            <a href="https://github.com/zhafaatrahimizainal" target="_blank" rel="noreferrer" aria-label="GitHub">
               <GithubIcon size={18} />
             </a>
             <a href="https://linkedin.com" target="_blank" rel="noreferrer" aria-label="LinkedIn">

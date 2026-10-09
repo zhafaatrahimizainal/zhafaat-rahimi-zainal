@@ -2,7 +2,7 @@
   padding: 2rem;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: space-around;
   min-width: 0;
   height: 100%;
 }
