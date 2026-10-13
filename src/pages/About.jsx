@@ -34,7 +34,7 @@ function About() {
             Analytical Thinking Meets <span className="gradient-text">Creative Web Crafts.</span>
           </h1>
           <p className="page-description">
-            I am Zhafaat Rahimi Zainal, S.Si — a Full-Stack Developer and UI/UX enthusiast. I combine scientific rigor with practical web technologies to build user-centered digital solutions.
+            I am Zhafaat Rahimi Zainal, S.Si — a Full-Stack Developer and AI tools enthusiast. I build websites as a side hustle to earn an income, and I enjoy traveling and exploring beautiful places.
           </p>
         </div>
         <div className="about-portrait-wrapper">

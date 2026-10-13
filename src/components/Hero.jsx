@@ -29,14 +29,12 @@ function Hero() {
           </div>
 
           <h1 className="hero-headline">
-            Transforming Ideas into{" "}
-            <span className="gradient-text">Digital Experiences.</span>
+            Build your own digital home{" "}
+            <span className="gradient-text">on the World Wide Web.</span>
           </h1>
 
           <p className="hero-description">
-            I build modern, responsive websites and digital products that help
-            individuals, businesses, and brands establish a powerful, performant
-            online presence.
+            I am your digital architect and developer, building custom web homes that empower individuals, businesses, and brands to thrive online.
           </p>
         </div>
 
